@@ -87,7 +87,7 @@ export default function Home({ currentSong, onSongPlay }: HomeProps) {
   return (
     <Box sx={{ flex: 1, overflowY: 'auto', p: 3 }}>
       <Header />
-      <Box sx={{ mt: '64px' }}>
+      <Box sx={{ mt: '64' }}>
         <CardSection title="Recently Played" items={recentPlays} />
         <CardSection title="Made For You" items={recentPlays.slice().reverse()} />
         <PopularSongs 

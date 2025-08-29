@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { createTheme, ThemeProvider, CssBaseline, Box } from '@mui/material';
 import Sidebar from "./components/Sidebar";
 
@@ -11,6 +11,9 @@ import Settings from './pages/Settings';
 import Playlist from './pages/Playlist';
 import Song from './pages/Song';
 import Album from './pages/Album';
+import NewPlaylist from './pages/NewPlaylist';
+import LikedSongs from './pages/LikedSongs';
+import NotFound from './pages/NotFound';
 
 const theme = createTheme({
   palette: {
@@ -54,6 +57,13 @@ function App() {
                   <Route path="/playlist/:id" element={<Playlist />} />
                   <Route path="/song/:id" element={<Song />} />
                   <Route path="/album/:id" element={<Album />} />
+                  <Route path="/new-playlist" element={<NewPlaylist />} />
+                  <Route path="/liked-songs" element={<LikedSongs />} />
+                  <Route
+                    path="*"
+                    element={<Navigate to="/404" replace />}
+                  />
+                  <Route path="/404" element={<NotFound />} />
                 </Routes>
               </Box>
             </Box>

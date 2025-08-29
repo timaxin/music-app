@@ -7,6 +7,10 @@ import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import PlaylistIcon from '@mui/icons-material/QueueMusic';
+import { useState } from 'react';
 
 interface MenuItemProps {
   text: string;
@@ -16,6 +20,7 @@ interface MenuItemProps {
 
 export default function Sidebar() {
   const location = useLocation();
+  const [openPlaylists, setOpenPlaylists] = useState(false);
   
   const mainMenuItems: MenuItemProps[] = [
     { text: 'Home', icon: <HomeIcon fontSize="small" />, path: '/' },
@@ -30,6 +35,10 @@ export default function Sidebar() {
 
   const bottomMenuItems: MenuItemProps[] = [
     { text: 'Settings', icon: <SettingsIcon fontSize="small" />, path: '/settings' },
+  ];
+
+  const myPlaylists = [
+    { text: 'Playlist 1', icon: <PlaylistIcon fontSize="small" />, path: '/playlist/1' },
   ];
 
   const renderMenuItem = (item: MenuItemProps) => {
@@ -101,6 +110,30 @@ export default function Sidebar() {
         Library
       </Typography>
       <MenuList sx={{ px: 2, pb: 2 }}>
+        <MenuItem
+          onClick={() => setOpenPlaylists(!openPlaylists)}
+          sx={{
+            '&.Mui-selected': {
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              '& .MuiListItemIcon-root': { color: 'primary.main' },
+              '& .MuiListItemText-primary': { color: 'primary.main', fontWeight: 600 },
+            },
+            '&:hover': {
+              backgroundColor: 'rgba(255, 255, 255, 0.05)',
+            },
+          }}
+        >
+            <ListItemIcon>
+                {openPlaylists ? <KeyboardArrowUpIcon fontSize="small" /> : <KeyboardArrowDownIcon fontSize="small" />}
+            </ListItemIcon>
+            <ListItemText 
+                primary="My Playlists" 
+            />
+        </MenuItem>
+        {openPlaylists && <MenuList sx={{ px: 2, pb: 2 }}>
+          {myPlaylists.map(renderMenuItem)}
+        </MenuList>}
+
         {libraryMenuItems.map(renderMenuItem)}
       </MenuList>
 
